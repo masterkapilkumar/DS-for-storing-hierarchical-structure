@@ -71,10 +71,22 @@ class Company {
 
 	public String LowestCommonBoss(String E, String E1) {
 		
-		return ""
+		return "";
 	}
 
 	public void printEmployees() {
-		
+		System.out.println(ceo.getName());
+		for(int i=2; i<levels.size(); i++) {
+			ArrayList<LinkedList<Employee> > leveli = levels.get(i);
+			for(int j=0; j<leveli.size(); j++) {
+				LinkedList<Employee> members = leveli.get(j);
+				ListIterator iter = members.listIterator(0);
+				while(iter.hasNext()){ 
+					Employee e1 = (Employee) iter.next();
+					System.out.print(e1.getName()+"-"+e1.getLevel()+",  ");
+				}
+			}
+			System.out.println();
+		}
 	}
 }
