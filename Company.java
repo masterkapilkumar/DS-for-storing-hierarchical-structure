@@ -71,7 +71,43 @@ class Company {
 
 	public String LowestCommonBoss(String E, String E1) {
 		
-		return "";
+		Employee e = SearchEmployee(E);
+		if(e == null) {
+			throw new NoSuchElementException("No employee "+E+" in the company.");
+		}
+		
+		if(E==E1) {
+			return E;
+		}
+		
+		Employee e1 = SearchEmployee(E1);
+		if(e1 == null) {
+			throw new NoSuchElementException("No employee "+E1+" in the company.");
+		}
+		
+		Stack<Employee> bosses1 = new Stack<>();
+		Stack<Employee> bosses2 = new Stack<>();
+		
+		Employee boss = e;
+		while(boss!=null) {
+			bosses1.push(boss);
+			boss=boss.getBoss();
+		}
+		
+		boss = e1;
+		while(boss!=null) {
+			bosses2.push(boss);
+			boss=boss.getBoss();
+		}
+		
+		Employee commonBoss = bosses1.peek();
+		while(!bosses1.empty() && !bosses2.empty() && bosses1.peek()==bosses2.peek()) {
+			commonBoss = bosses1.peek();
+			bosses1.pop();
+			bosses2.pop();
+		}
+		
+		return commonBoss.getName();
 	}
 
 	public void printEmployees() {
